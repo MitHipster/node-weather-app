@@ -1,0 +1,23 @@
+{
+  "name": "node-weather-app",
+  "version": "1.0.0",
+  "description": "Andrew Mead - The Complete Node.js Developer Course",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MitHipster/node-weather-app.git"
+  },
+  "keywords": [],
+  "author": "Tim Acker",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MitHipster/node-weather-app/issues"
+  },
+  "homepage": "https://github.com/MitHipster/node-weather-app#readme",
+  "devDependencies": {
+    "eslint": "^5.13.0"
+  }
+}
