@@ -19,5 +19,9 @@
   "homepage": "https://github.com/MitHipster/node-weather-app#readme",
   "devDependencies": {
     "eslint": "^5.13.0"
+  },
+  "dependencies": {
+    "dotenv": "^6.2.0",
+    "request": "^2.88.0"
   }
 }
