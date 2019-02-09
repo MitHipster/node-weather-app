@@ -1,6 +1,10 @@
 const yargs = require('yargs');
 const chalk = require('chalk');
 
+const dotenv = require('dotenv');
+const request = require('request');
+const apiKey = dotenv.config().parsed.WEATHER_API_KEY;
+
 const geocode = require('./geocode/geocode');
 
 const argv = yargs
@@ -22,3 +26,17 @@ geocode.geocodeAddress(argv.address, (err, res) => {
 		console.info(res);
 	}
 });
+
+request(
+	{
+		url: 'https://api.darksky.net/forecast/' + apiKey + '/37.8267,-122.4233',
+		json: true
+	},
+	(error, response, body) => {
+		if (!error && response.statusCode === 200) {
+			console.log(body.currently.temperature);
+		} else {
+			console.warn('\nUnable to connect to DarkSky server. Please try again later.\n');
+		}
+	}
+);

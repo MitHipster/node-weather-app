@@ -1,6 +1,6 @@
 const dotenv = require('dotenv');
 const request = require('request');
-const apiKey = dotenv.config().parsed.API_KEY;
+const apiKey = dotenv.config().parsed.MAP_API_KEY;
 
 const geocodeAddress = (address, callback) => {
 	const encodedLocation = encodeURIComponent(address);
