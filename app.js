@@ -20,14 +20,18 @@ geocode.geocodeAddress(argv.address, (err, res) => {
 	if (err) {
 		console.warn(chalk.red(err));
 	} else {
-		console.info(res);
-	}
-});
+		console.info(
+			chalk.blue('\nTemps for Location:'),
+			`${res.street} ${res.city}, ${res.state} ${res.postalCode}\n`
+		);
 
-weather.getWeather(37.8267, -122.4233, (err, res) => {
-	if (err) {
-		console.warn(chalk.red(err));
-	} else {
-		console.info(res);
+		weather.getWeather(res.lat, res.lng, (err, res) => {
+			if (err) {
+				console.warn(chalk.red(err));
+			} else {
+				console.info(chalk.blue('Temperature:'), res.temperature);
+				console.info(chalk.blue('Feels Like:'), res.feelsLike);
+			}
+		});
 	}
 });
