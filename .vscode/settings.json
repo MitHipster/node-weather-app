@@ -10,5 +10,5 @@
 		".vscode",
 		"typings"
 	],
-	"cSpell.words": ["linebreak"]
+	"cSpell.words": ["statuscode", "linebreak"]
 }
