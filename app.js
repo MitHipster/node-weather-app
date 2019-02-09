@@ -1,4 +1,5 @@
 const yargs = require('yargs');
+const chalk = require('chalk');
 
 const geocode = require('./geocode/geocode');
 
@@ -14,4 +15,10 @@ const argv = yargs
 	.help()
 	.alias('help', 'h').argv;
 
-geocode.geocodeAddress(argv.address);
+geocode.geocodeAddress(argv.address, (err, res) => {
+	if (err) {
+		console.warn(chalk.red(err));
+	} else {
+		console.info(res);
+	}
+});

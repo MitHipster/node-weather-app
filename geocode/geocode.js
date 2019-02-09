@@ -1,9 +1,8 @@
 const dotenv = require('dotenv');
 const request = require('request');
-const chalk = require('chalk');
 const apiKey = dotenv.config().parsed.API_KEY;
 
-const geocodeAddress = address => {
+const geocodeAddress = (address, callback) => {
 	const encodedLocation = encodeURIComponent(address);
 
 	request(
@@ -18,15 +17,22 @@ const geocodeAddress = address => {
 		},
 		(error, response, body) => {
 			if (error) {
-				console.warn(
-					chalk.red('\nUnable to connect to MapQuest server. Please try again later.\n')
-				);
+				callback('\nUnable to connect to MapQuest server. Please try again later.\n');
 			} else if (body.info.statuscode === 400) {
-				console.info(chalk.yellow('\nInvalid input. Please try again.\n'));
+				callback('\nInvalid input. Please try again.\n');
 			} else if (body.info.statuscode === 0) {
-				console.log(JSON.stringify(body.results[0].locations[0].latLng.lat, null, 2));
+				const res = body.results[0].locations[0];
+				callback(undefined, {
+					street: res.street,
+					city: res.adminArea5,
+					state: res.adminArea3,
+					country: res.adminArea1,
+					postalCode: res.postalCode,
+					lat: res.latLng.lat,
+					lng: res.latLng.lng
+				});
 			} else {
-				console.warn(chalk.red('\nUnknown error. Please contact customer support.\n'));
+				callback('\nUnknown error. Please contact customer support.\n');
 			}
 		}
 	);
