@@ -10,5 +10,5 @@
 		".vscode",
 		"typings"
 	],
-	"cSpell.words": ["statuscode", "linebreak"]
+	"cSpell.words": ["geocode", "statuscode", "linebreak"]
 }
