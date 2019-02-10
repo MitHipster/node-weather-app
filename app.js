@@ -18,20 +18,17 @@ const argv = yargs
 
 geocode
 	.geocodeAddress(argv.address)
-	.then(res => {
+	.then(address => {
 		console.info(
-			chalk.blue('\nTemps for Location:'),
-			`${res.street} ${res.city}, ${res.state} ${res.postalCode}\n`
+			chalk.blue('\nLocation:'),
+			`${address.street} ${address.city}, ${address.state} ${address.postalCode}\n`
 		);
 
-		weather.getWeather(res.lat, res.lng, (err, res) => {
-			if (err) {
-				console.warn(chalk.red(err));
-			} else {
-				console.info(chalk.blue('Temperature:'), res.temperature);
-				console.info(chalk.blue('Feels Like:'), res.feelsLike);
-			}
-		});
+		return weather.getWeather(address.lat, address.lng);
+	})
+	.then(weather => {
+		console.info(chalk.blue('Temperature:'), weather.temperature);
+		console.info(chalk.blue('Feels Like:'), weather.feelsLike);
 	})
 	.catch(err => {
 		console.warn(chalk.red(err));
