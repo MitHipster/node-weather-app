@@ -16,10 +16,9 @@ const argv = yargs
 	.help()
 	.alias('help', 'h').argv;
 
-geocode.geocodeAddress(argv.address, (err, res) => {
-	if (err) {
-		console.warn(chalk.red(err));
-	} else {
+geocode
+	.geocodeAddress(argv.address)
+	.then(res => {
 		console.info(
 			chalk.blue('\nTemps for Location:'),
 			`${res.street} ${res.city}, ${res.state} ${res.postalCode}\n`
@@ -33,5 +32,7 @@ geocode.geocodeAddress(argv.address, (err, res) => {
 				console.info(chalk.blue('Feels Like:'), res.feelsLike);
 			}
 		});
-	}
-});
+	})
+	.catch(err => {
+		console.warn(chalk.red(err));
+	});
