@@ -27,7 +27,7 @@ geocode(argv.address, (error, response) => {
 	);
 });
 
-weather('35.808014', '-78.882244', (error, response) => {
+weather(35.808014, -78.882244, (error, response) => {
 	if (error) {
 		return console.warn(chalk.red('\n' + error.message + '\n'));
 	}
