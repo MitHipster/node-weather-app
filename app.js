@@ -1,9 +1,8 @@
-const dotenv = require('dotenv');
-const mapKey = dotenv.config().parsed.MAP_API_KEY;
-const weatherKey = dotenv.config().parsed.WEATHER_API_KEY;
 const yargs = require('yargs');
-const axios = require('axios');
 const chalk = require('chalk');
+
+const geocode = require('./utils/geocode');
+const weather = require('./utils/weather');
 
 const argv = yargs
 	.options({
@@ -17,39 +16,23 @@ const argv = yargs
 	.help()
 	.alias('help', 'h').argv;
 
-const encodedLocation = encodeURIComponent(argv.address);
-const geocodeURL = `http://www.mapquestapi.com/geocoding/v1/address?key=${mapKey}&location=${encodedLocation}`;
+geocode(argv.address, (error, response) => {
+	if (error) {
+		return console.warn(chalk.red('\n' + error.message + '\n'));
+	}
 
-axios
-	.get(geocodeURL)
-	.then(response => {
-		const statusCode = response.data.info.statuscode;
-		const location = response.data.results[0].locations[0] || {};
+	console.info(
+		chalk.blue('\nLocation:'),
+		`${response.street} ${response.adminArea5}, ${response.adminArea3} ${response.postalCode}\n`
+	);
+});
 
-		if (statusCode === 400) throw new Error('\nInvalid input. Please try again.\n');
+weather('35.808014', '-78.882244', (error, response) => {
+	if (error) {
+		return console.warn(chalk.red('\n' + error.message + '\n'));
+	}
 
-		console.info(
-			chalk.blue('\nLocation:'),
-			`${location.street} ${location.adminArea5}, ${location.adminArea3} ${location.postalCode}\n`
-		);
-
-		const lat = location.latLng.lat;
-		const lng = location.latLng.lng;
-		const weatherURL = `https://api.darksky.net/forecast/${weatherKey}/${lat},${lng}`;
-
-		return axios.get(weatherURL);
-	})
-	.then(response => {
-		const weather = response.data || {};
-
-		console.info(chalk.blue('Day\'s Summary:'), weather.daily.data[0].summary);
-		console.info(chalk.blue('Current Temperature:'), weather.currently.temperature);
-		console.info(chalk.blue('Feels Like:'), weather.currently.apparentTemperature);
-	})
-	.catch(error => {
-		if (error.code === 'ENOTFOUND') {
-			console.warn(chalk.red('\nUnable to connect to servers. Please try again later.\n'));
-		} else {
-			console.warn(chalk.red('\n' + error.message + '\n'));
-		}
-	});
+	console.info(chalk.blue('Day\'s Summary:'), response.summary);
+	console.info(chalk.blue('Current Temperature:'), response.temperature);
+	console.info(chalk.blue('Feels Like:'), response.apparentTemperature);
+});
