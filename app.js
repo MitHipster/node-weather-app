@@ -40,10 +40,11 @@ axios
 		return axios.get(weatherURL);
 	})
 	.then(response => {
-		const weather = response.data.currently || {};
+		const weather = response.data || {};
 
-		console.info(chalk.blue('Temperature:'), weather.temperature);
-		console.info(chalk.blue('Feels Like:'), weather.apparentTemperature);
+		console.info(chalk.blue('Day\'s Summary:'), weather.daily.data[0].summary);
+		console.info(chalk.blue('Current Temperature:'), weather.currently.temperature);
+		console.info(chalk.blue('Feels Like:'), weather.currently.apparentTemperature);
 	})
 	.catch(error => {
 		if (error.code === 'ENOTFOUND') {
