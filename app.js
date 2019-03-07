@@ -16,23 +16,23 @@ const argv = yargs
 	.help()
 	.alias('help', 'h').argv;
 
-geocode(argv.address, (error, response) => {
-	if (error) {
-		return console.warn(chalk.red('\n' + error.message + '\n'));
-	}
+const errorHandler = error => {
+	console.warn(chalk.red('\n' + error.message + '\n'));
+};
 
-	console.info(
-		chalk.blue('\nLocation:'),
-		`${response.street} ${response.adminArea5}, ${response.adminArea3} ${response.postalCode}\n`
-	);
-});
+geocode(argv.address, (error, geoData) => {
+	if (error) return errorHandler(error);
 
-weather(35.808014, -78.882244, (error, response) => {
-	if (error) {
-		return console.warn(chalk.red('\n' + error.message + '\n'));
-	}
+	weather(geoData.lat, geoData.lng, (error, weatherData) => {
+		if (error) return errorHandler(error);
 
-	console.info(chalk.blue('Day\'s Summary:'), response.summary);
-	console.info(chalk.blue('Current Temperature:'), response.temperature);
-	console.info(chalk.blue('Feels Like:'), response.apparentTemperature);
+		console.info(
+			chalk.blue('\nLocation:'),
+			`${geoData.street} ${geoData.adminArea5}, ${geoData.adminArea3} ${geoData.postalCode}\n`
+		);
+
+		console.info(chalk.blue('Day\'s Summary:'), weatherData.summary);
+		console.info(chalk.blue('Current Temperature:'), weatherData.temperature);
+		console.info(chalk.blue('Feels Like:'), weatherData.apparentTemperature);
+	});
 });
