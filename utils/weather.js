@@ -7,13 +7,11 @@ const weather = (lat, lng, callback) => {
 
 	axios
 		.get(url)
-		.then(response => {
-			const weather = response.data || {};
-
+		.then(({ data } = {}) => {
 			callback(undefined, {
-				summary: weather.daily.data[0].summary,
-				temperature: weather.currently.temperature,
-				apparentTemperature: weather.currently.apparentTemperature
+				summary: data.daily.data[0].summary,
+				temperature: data.currently.temperature,
+				apparentTemperature: data.currently.apparentTemperature
 			});
 		})
 		.catch(error => {

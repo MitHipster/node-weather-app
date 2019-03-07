@@ -1,7 +1,7 @@
 const chalk = require('chalk');
 
-const errorHandler = error => {
-	console.warn(chalk.red(error.message));
+const errorHandler = ({ message }) => {
+	console.warn(chalk.red(message));
 };
 
 const logInformation = messageObj => {

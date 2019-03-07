@@ -8,11 +8,10 @@ const geocode = (address, callback) => {
 
 	axios
 		.get(url)
-		.then(response => {
-			const statusCode = response.data.info.statuscode;
-			const location = response.data.results[0].locations[0] || {};
+		.then(({ data } = {}) => {
+			const location = data.results[0].locations[0];
 
-			if (statusCode === 400) {
+			if (data.info.statuscode === 400) {
 				throw new Error('Invalid input. Please try again.');
 			} else {
 				callback(undefined, {
