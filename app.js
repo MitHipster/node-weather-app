@@ -1,8 +1,8 @@
 const yargs = require('yargs');
-const chalk = require('chalk');
 
 const geocode = require('./utils/geocode');
 const weather = require('./utils/weather');
+const { errorHandler, logInformation } = require('./utils/helper.js');
 
 const argv = yargs
 	.options({
@@ -16,23 +16,20 @@ const argv = yargs
 	.help()
 	.alias('help', 'h').argv;
 
-const errorHandler = error => {
-	console.warn(chalk.red('\n' + error.message + '\n'));
-};
-
-geocode(argv.address, (error, geoData) => {
+geocode(argv.address, (error, { lat, lng, street, adminArea5, adminArea3, postalCode } = {}) => {
 	if (error) return errorHandler(error);
 
-	weather(geoData.lat, geoData.lng, (error, weatherData) => {
+	weather(lat, lng, (error, { summary, temperature, apparentTemperature } = {}) => {
 		if (error) return errorHandler(error);
 
-		console.info(
-			chalk.blue('\nLocation:'),
-			`${geoData.street} ${geoData.adminArea5}, ${geoData.adminArea3} ${geoData.postalCode}\n`
-		);
+		logInformation({
+			Location: `${street} ${adminArea5}, ${adminArea3} ${postalCode}`
+		});
 
-		console.info(chalk.blue('Day\'s Summary:'), weatherData.summary);
-		console.info(chalk.blue('Current Temperature:'), weatherData.temperature);
-		console.info(chalk.blue('Feels Like:'), weatherData.apparentTemperature);
+		logInformation({
+			'Day\'s Summary': summary,
+			'Current Temperature': temperature,
+			'Feels Like': apparentTemperature
+		});
 	});
 });
