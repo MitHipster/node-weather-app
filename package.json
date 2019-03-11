@@ -1,31 +1,32 @@
 {
-  "name": "node-weather-app",
-  "version": "1.0.0",
-  "description": "Andrew Mead - The Complete Node.js Developer Course",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/MitHipster/node-weather-app.git"
-  },
-  "keywords": [],
-  "author": "Tim Acker",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/MitHipster/node-weather-app/issues"
-  },
-  "homepage": "https://github.com/MitHipster/node-weather-app#readme",
-  "devDependencies": {
-    "eslint": "^5.13.0"
-  },
-  "dependencies": {
-    "axios": "^0.18.0",
-    "chalk": "^2.4.2",
-    "dotenv": "^6.2.0",
-    "express": "^4.16.4",
-    "hbs": "^4.0.3",
-    "yargs": "^12.0.5"
-  }
+	"name": "node-weather-app",
+	"version": "1.0.0",
+	"description": "Andrew Mead - The Complete Node.js Developer Course",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"server": "nodemon src/app.js -e js,hbs"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/MitHipster/node-weather-app.git"
+	},
+	"keywords": [],
+	"author": "Tim Acker",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/MitHipster/node-weather-app/issues"
+	},
+	"homepage": "https://github.com/MitHipster/node-weather-app#readme",
+	"devDependencies": {
+		"eslint": "^5.13.0"
+	},
+	"dependencies": {
+		"axios": "^0.18.0",
+		"chalk": "^2.4.2",
+		"dotenv": "^6.2.0",
+		"express": "^4.16.4",
+		"hbs": "^4.0.3",
+		"yargs": "^12.0.5"
+	}
 }
