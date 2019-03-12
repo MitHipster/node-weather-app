@@ -1,8 +1,11 @@
 const path = require('path');
 const express = require('express');
 const hbs = require('hbs');
+const geocode = require('./utils/geocode');
+const weather = require('./utils/weather');
 
 const app = express();
+const name = 'Tim Acker';
 
 // Configure handlebars templating engine and define
 // a custom handlebars directory versus the views default
@@ -17,29 +20,48 @@ app.use(express.static(path.join(__dirname, '../public')));
 app.get('/', (req, res) => {
 	res.render('index', {
 		title: 'Weather Home Page',
-		name: 'Tim Acker'
+		name
 	});
 });
 
 app.get('/about', (req, res) => {
 	res.render('about', {
 		title: 'Weather About Page',
-		name: 'Tim Acker'
+		name
 	});
 });
 
 app.get('/help', (req, res) => {
 	res.render('help', {
 		title: 'Weather Help Page',
-		name: 'Tim Acker'
+		name
 	});
 });
 
 app.get('/weather', (req, res) => {
-	res.send({
-		location: 'Cary, NC',
-		temperature: 49
-	});
+	const errorHandler = error => {
+		res.send({ error });
+	};
+
+	if (!req.query.location) return errorHandler({ message: 'No location provided' });
+
+	geocode(
+		req.query.location,
+		(error, { lat, lng, street, adminArea5, adminArea3, postalCode } = {}) => {
+			if (error) return errorHandler(error);
+
+			weather(lat, lng, (error, { summary, temperature, apparentTemperature } = {}) => {
+				if (error) return errorHandler(error);
+
+				res.send({
+					location: `${street} ${adminArea5}, ${adminArea3} ${postalCode}`.trim(),
+					summary,
+					temperature,
+					apparentTemperature
+				});
+			});
+		}
+	);
 });
 
 // Handles other help routes not specified
