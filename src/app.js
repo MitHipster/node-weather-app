@@ -22,14 +22,14 @@ app.get('/', (req, res) => {
 });
 
 app.get('/about', (req, res) => {
-	res.render('index', {
+	res.render('about', {
 		title: 'Node Weather About Page',
 		name: 'Tim Acker'
 	});
 });
 
 app.get('/help', (req, res) => {
-	res.render('index', {
+	res.render('help', {
 		title: 'Node Weather Help Page',
 		name: 'Tim Acker'
 	});
@@ -39,6 +39,24 @@ app.get('/weather', (req, res) => {
 	res.send({
 		location: 'Cary, NC',
 		temperature: 49
+	});
+});
+
+// Handles other help routes not specified
+app.get('/help/*', (req, res) => {
+	res.render('404', {
+		title: '404',
+		error: 'Help page not found.',
+		name: 'Tim Acker'
+	});
+});
+
+// Handles all other routes not specified
+app.get('*', (req, res) => {
+	res.render('404', {
+		title: '404',
+		error: 'Page not found.',
+		name: 'Tim Acker'
 	});
 });
 
