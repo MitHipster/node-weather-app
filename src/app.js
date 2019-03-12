@@ -16,21 +16,21 @@ app.use(express.static(path.join(__dirname, '../public')));
 
 app.get('/', (req, res) => {
 	res.render('index', {
-		title: 'Node Weather Home Page',
+		title: 'Weather Home Page',
 		name: 'Tim Acker'
 	});
 });
 
 app.get('/about', (req, res) => {
 	res.render('about', {
-		title: 'Node Weather About Page',
+		title: 'Weather About Page',
 		name: 'Tim Acker'
 	});
 });
 
 app.get('/help', (req, res) => {
 	res.render('help', {
-		title: 'Node Weather Help Page',
+		title: 'Weather Help Page',
 		name: 'Tim Acker'
 	});
 });
