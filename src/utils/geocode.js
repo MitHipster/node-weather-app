@@ -28,7 +28,7 @@ const geocode = (address, callback) => {
 			if (error.code === 'ENOTFOUND') {
 				callback({ message: 'Unable to connect to servers. Please try again later.' }, undefined);
 			} else {
-				callback({ message: error.message }, undefined);
+				callback({ message: 'Cannot find location. Please try again' }, undefined);
 			}
 		});
 };
