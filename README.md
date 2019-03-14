@@ -8,19 +8,15 @@ Andrew Mead - The Complete Node.js Developer Course
 
 ## Description
 
-Re-created a terminal-based weather app using Node.js, Yargs, Request (with promises - v1.0) or Axios (with included promises - v1.1) with a required `address` option to retrieve location coordinates from the MapQuest API to pass to the DarkSky API.
+Re-created a simple weather website using Node.js, Express, and Axios for submitting an API request to MapQuest and DarkSky to retrieve location information and the current weather, respectively.
 
-### Prerequisites
+### Deployed
 
-Install Node using [Homebrew package manager](https://brew.sh/). This will also install npm for package management.
-
-```
-brew install node
-```
+This app is deployed to [Heroku](https://secret-cove-80282.herokuapp.com/).
 
 ### Note
 
-You will need to sign up for an API key at [MapQuest](https://developer.mapquest.com/documentation/) and [DarkSky](https://darksky.net/dev) to use this node app. Create a `.env` file in the root folder to store your keys and access them using the `dotenv` package.
+You will need to sign up for an API key at [MapQuest](https://developer.mapquest.com/documentation/) and [DarkSky](https://darksky.net/dev) to use this app locally via your localhost. Create a `.env` file in the root folder to store your keys and access them using the `dotenv` package.
 
 ### Installing
 
@@ -28,15 +24,13 @@ After downloading or cloning the repo perform the following steps:
 
 Open the project folder at the root in your terminal and run `npm install` to download the dependencies needed for this project.
 
-Next, type `node app.js --help` to view the available command or type `node app.js --address '<location>'` to see the current temperatures for a given location.
+Next, type `node src/app.js` to run the Express server which defaults to localhost:3000.
 
 ## Built With
 
 - [Node.js](https://nodejs.org/en/) - JavaScript runtime
-- [Yargs](https://yargs.js.org/) - Arguments parser
-- [Request](https://github.com/request/request#readme) - HTTP requests
+- [Express](https://expressjs.com/) - Server Framework
 - [Axios](https://github.com/axios/axios) - Promise-based HTTP requests
-- [Chalk](https://github.com/chalk/chalk#readme) - Terminal styling
 - [ESLint](https://eslint.org/) - Linting utility
 - [MapQuest API](https://eslint.org/) - Latitude and longitude
 - [DarkSky](https://eslint.org/) - Weather information
