@@ -3,6 +3,7 @@ const express = require('express');
 const hbs = require('hbs');
 const geocode = require('./utils/geocode');
 const weather = require('./utils/weather');
+const PORT = process.env.PORT || 3000;
 
 const app = express();
 const name = 'Tim Acker';
@@ -82,6 +83,6 @@ app.get('*', (req, res) => {
 	});
 });
 
-app.listen(3000, () => {
-	console.info('Server listening on port 3000.');
+app.listen(PORT, () => {
+	console.info(`Server listening on port ${PORT}.`);
 });
