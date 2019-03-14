@@ -37,6 +37,22 @@ nav a:hover {
 	font-weight: bold;
 }
 
+input {
+	width: 250px;
+	font-size: 14px;
+	border: 1px solid #ccc;
+	padding: 8px;
+}
+
+button {
+	cursor: pointer;
+	font-size: 14px;
+	color: #fff;
+	background: #888;
+	border: 1px solid #888;
+	padding: 8px;
+}
+
 footer {
 	color: #888;
 	border-top: 1px solid #eee;
