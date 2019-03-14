@@ -1,5 +1,5 @@
 const dotenv = require('dotenv');
-const mapKey = dotenv.config().parsed.MAP_API_KEY;
+const mapKey = process.env.MAP_API_KEY || dotenv.config().parsed.MAP_API_KEY;
 const axios = require('axios');
 
 const geocode = (address, callback) => {

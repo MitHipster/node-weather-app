@@ -1,5 +1,5 @@
 const dotenv = require('dotenv');
-const weatherKey = dotenv.config().parsed.WEATHER_API_KEY;
+const weatherKey = process.env.WEATHER_API_KEY || dotenv.config().parsed.WEATHER_API_KEY;
 const axios = require('axios');
 
 const weather = (lat, lng, callback) => {
